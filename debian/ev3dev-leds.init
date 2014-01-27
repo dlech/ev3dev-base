@@ -1,0 +1,46 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          ev3dev-leds
+# Required-Start:    $all
+# Required-Stop:     $all
+# Should-Start:
+# Should-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Sets LEDs to green on start and red on stop
+# Description:
+### END INIT INFO
+
+case "$1" in
+  start|restart|force-reload)
+    echo none > "/sys/class/leds/ev3:red:right/trigger"
+    echo none > "/sys/class/leds/ev3:red:left/trigger"
+    echo none > "/sys/class/leds/ev3:green:right/trigger"
+    echo none > "/sys/class/leds/ev3:green:left/trigger"
+    echo 0 > "/sys/class/leds/ev3:red:right/brightness"
+    echo 0 > "/sys/class/leds/ev3:red:left/brightness"
+    echo 1 > "/sys/class/leds/ev3:green:right/brightness"
+    echo 1 > "/sys/class/leds/ev3:green:left/brightness"
+    ;;
+  stop)
+    echo none > "/sys/class/leds/ev3:red:right/trigger"
+    echo none > "/sys/class/leds/ev3:red:left/trigger"
+    echo none > "/sys/class/leds/ev3:green:right/trigger"
+    echo none > "/sys/class/leds/ev3:green:left/trigger"
+    echo 1 > "/sys/class/leds/ev3:red:right/brightness"
+    echo 1 > "/sys/class/leds/ev3:red:left/brightness"
+    echo 0 > "/sys/class/leds/ev3:green:right/brightness"
+    echo 0 > "/sys/class/leds/ev3:green:left/brightness"
+    ;;
+  status)
+    echo "This is not a real service."
+    ;;
+  *)
+    echo "Usage: /etc/init.d/ev3-leds {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
+

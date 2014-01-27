@@ -1,0 +1,9 @@
+# rename serial ports to match EV3 input ports
+KERNEL=="ttyS1", SYMLINK+="tty_in1"
+KERNEL=="ttyS0", SYMLINK+="tty_in2"
+KERNEL=="ttySU1", SYMLINK+="tty_in3"
+KERNEL=="ttySU0", SYMLINK+="tty_in4"
+
+# start and stop UART sensor lince discipline when UART sensor is connected or disconnected
+SUBSYSTEM=="legoev3", ENV{DEVTYPE}=="ev3-uart-host", SUBSYSTEMS=="legoev3", DRIVERS=="ev3-input-port", ACTION=="add", RUN+="/usr/lib/ev3dev/uart.sh start $id"
+SUBSYSTEM=="legoev3", ENV{DEVTYPE}=="ev3-uart-host", SUBSYSTEMS=="legoev3", DRIVERS=="ev3-input-port", ACTION=="remove", RUN+="/usr/lib/ev3dev/uart.sh stop $id"

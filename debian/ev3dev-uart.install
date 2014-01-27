@@ -1,0 +1,2 @@
+lib/firmware/PRU_SUART.bin
+usr/lib/ev3dev/uart.sh

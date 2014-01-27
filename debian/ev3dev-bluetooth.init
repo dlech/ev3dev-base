@@ -1,0 +1,48 @@
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:          ev3dev-bluetooth
+# Required-Start:    $remote_fs bluetooth
+# Required-Stop:     $remote_fs bluetooth
+# Should-Start:
+# Should-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description:
+# Description:
+### END INIT INFO
+
+start_ev3_bluetooth()
+{
+  BT_ADDR=$(/usr/bin/hexdump -e '5/1 "%02X:" "%02X"' -s 0x3f06 -n 6 < /sys/bus/i2c/drivers/at24/1-0050/eeprom)
+  /usr/sbin/hciattach ttyS2 texas 2000000 flow nosleep $BT_ADDR
+}
+
+stop_ev3_bluetooth()
+{
+  # not implemented
+  echo -n
+}
+
+case "$1" in
+  restart|force-reload)
+    stop_ev3_bluetooth
+    start_ev3_bluetooth
+    ;;
+  start)
+    start_ev3_bluetooth
+    ;;
+  stop)
+    stop_ev3_bluetooth
+    ;;
+  status)
+    echo "This is not a real service."
+    ;;
+  *)
+    echo "Usage: /etc/init.d/ev3-bluetooth {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0
+

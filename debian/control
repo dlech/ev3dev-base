@@ -1,0 +1,43 @@
+Source: ev3dev-base
+Priority: required
+Maintainer: David Lechner <david@lechnology.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Section: embedded
+Homepage: https://github.com/mindboards/ev3dev
+Vcs-Git: git://github.com/mindboards/ev3dev-base.git
+Vcs-Browser: https://github.com/mindbaords/ev3dev-base
+
+Package: ev3dev-bluetooth
+Section: embedded
+Architecture: all
+Depends: bluez, bsdmainutils, ${misc:Depends}
+Description: Firmware and scripts for EV3 bluetooth.
+ Provides the firmware and initialization scripts for the on-board bluetooth
+ on the LEGO Mindstorms EV3.
+
+Package: ev3dev-leds
+Section: embedded
+Architecture: all
+Depends: ${misc:Depends}
+Description: Initalization scripts for EV3 LEDs.
+ Provides init script for the built-in LEDs on the LEGO Mindstorms EV3.
+
+Package: ev3dev-uart
+Section: embedded
+Architecture: all
+Depends: ${misc:Depends}
+Description: Firmware and scripts for EV3 input port UARTs.
+ Provides the firmware needed for the Soc PRU to implement a UART interface for
+ input ports 3 and 4 on the LEGO Mindstorms EV3. Also includes udev rules for
+ starting and stopping the UARTs on all 4 input ports.
+
+Package: ev3dev-base
+Section: metapackages
+Architecture: all
+Depends: ev3dev-bluetooth, ev3dev-leds, ev3dev-uart
+Description: Meta package that installs all of the required ev3dev packages.
+ Includes the following packages:
+  - ev3dev-bluetooth
+  - ev3dev-leds
+  - ev3dev-pru-uart
